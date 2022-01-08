@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {EditPostProps} from '../../App';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {Button, Text, TextInput, View} from 'react-native';
-import {postUpdated} from './postsSlice';
+import {PostState, postUpdated} from './postsSlice';
 
 const EditPostForm = ({navigation, route}: EditPostProps) => {
   const {postId} = route.params;
@@ -10,7 +10,7 @@ const EditPostForm = ({navigation, route}: EditPostProps) => {
   const post = useAppSelector(state =>
     // eslint-disable-next-line @typescript-eslint/no-shadow
     state.posts.find(post => post.id === postId),
-  );
+  ) as PostState;
 
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
