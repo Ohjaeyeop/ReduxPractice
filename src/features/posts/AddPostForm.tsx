@@ -1,9 +1,21 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Button} from 'react-native';
+import {useAppDispatch} from '../../app/hooks';
+import {postAdded} from './postsSlice';
+import {nanoid} from '@reduxjs/toolkit';
 
 const AddPostForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const dispatch = useAppDispatch();
+
+  const onSavePostClicked = () => {
+    if (title && content) {
+      dispatch(postAdded({id: nanoid(), title, content}));
+    }
+    setTitle('');
+    setContent('');
+  };
 
   return (
     <View style={{padding: 15}}>
@@ -37,7 +49,7 @@ const AddPostForm = () => {
         onChangeText={text => setContent(text)}
         value={content}
       />
-      <Button title="Save Post" />
+      <Button title="Save Post" onPress={onSavePostClicked} />
     </View>
   );
 };
