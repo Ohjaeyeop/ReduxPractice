@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-interface PostState {
+export interface PostState {
   id: string;
   title: string;
   content: string;

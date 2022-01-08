@@ -1,20 +1,31 @@
 import React from 'react';
 import {useAppSelector} from '../../app/hooks';
 import {View, Text, FlatList, SafeAreaView} from 'react-native';
+import {PostState} from './postsSlice';
 
 const PostsList = () => {
   const posts = useAppSelector(state => state.posts);
 
-  const renderPosts = ({item}) => (
-    <SafeAreaView>
-      <Text>{item.title}</Text>
-      <Text>{item.content}</Text>
-    </SafeAreaView>
+  const renderPosts = ({item}: {item: PostState}) => (
+    <View
+      style={{
+        marginBottom: 10,
+        padding: 5,
+        borderWidth: 1,
+        borderRadius: 10,
+      }}>
+      <Text style={{fontWeight: 'bold', fontSize: 15, marginBottom: 10}}>
+        {item.title}
+      </Text>
+      <Text style={{marginBottom: 10}}>{item.content}</Text>
+    </View>
   );
 
   return (
-    <View>
-      <Text>Posts</Text>
+    <View style={{padding: 15}}>
+      <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
+        Posts
+      </Text>
       <FlatList data={posts} renderItem={renderPosts} />
     </View>
   );
