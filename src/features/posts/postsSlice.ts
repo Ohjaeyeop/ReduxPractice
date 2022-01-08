@@ -4,6 +4,7 @@ export interface PostState {
   id: string;
   title: string;
   content: string;
+  user?: string;
 }
 
 const initialState: PostState[] = [

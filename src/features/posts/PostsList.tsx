@@ -3,6 +3,7 @@ import {useAppSelector} from '../../app/hooks';
 import {View, Text, FlatList, Button, TouchableOpacity} from 'react-native';
 import {PostState} from './postsSlice';
 import {PostsListProps} from '../../App';
+import PostAuthor from './PostAuthor';
 
 const PostsList = ({navigation}: PostsListProps) => {
   const posts = useAppSelector(state => state.posts);
@@ -16,10 +17,9 @@ const PostsList = ({navigation}: PostsListProps) => {
         borderRadius: 10,
       }}
       onPress={() => navigation.navigate('SinglePost', {postId: item.id})}>
-      <Text style={{fontWeight: 'bold', fontSize: 15, marginBottom: 10}}>
-        {item.title}
-      </Text>
-      <Text style={{marginBottom: 10}}>{item.content}</Text>
+      <Text style={{fontWeight: 'bold', fontSize: 15}}>{item.title}</Text>
+      <PostAuthor userId={item.user} />
+      <Text style={{marginBottom: 15}}>{item.content}</Text>
     </TouchableOpacity>
   );
 

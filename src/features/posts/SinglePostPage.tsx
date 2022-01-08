@@ -2,6 +2,7 @@ import React from 'react';
 import {SinglePostProps} from '../../App';
 import {useAppSelector} from '../../app/hooks';
 import {View, Text, Button} from 'react-native';
+import PostAuthor from './PostAuthor';
 
 const SinglePostPage = ({navigation, route}: SinglePostProps) => {
   const {postId} = route.params;
@@ -21,9 +22,8 @@ const SinglePostPage = ({navigation, route}: SinglePostProps) => {
 
   return (
     <View style={{padding: 15}}>
-      <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 10}}>
-        {post.title}
-      </Text>
+      <Text style={{fontWeight: 'bold', fontSize: 20}}>{post.title}</Text>
+      <PostAuthor userId={post.user} />
       <Text>{post.content}</Text>
       <Button
         title="Edit Post"
