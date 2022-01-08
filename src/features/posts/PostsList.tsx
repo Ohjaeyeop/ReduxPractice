@@ -1,9 +1,9 @@
 import React from 'react';
 import {useAppSelector} from '../../app/hooks';
-import {View, Text, FlatList, SafeAreaView} from 'react-native';
+import {View, Text, FlatList, SafeAreaView, Button} from 'react-native';
 import {PostState} from './postsSlice';
 
-const PostsList = () => {
+const PostsList = ({navigation}) => {
   const posts = useAppSelector(state => state.posts);
 
   const renderPosts = ({item}: {item: PostState}) => (
@@ -27,6 +27,7 @@ const PostsList = () => {
         Posts
       </Text>
       <FlatList data={posts} renderItem={renderPosts} />
+      <Button title="Add Post" onPress={() => navigation.navigate('AddPost')} />
     </View>
   );
 };
