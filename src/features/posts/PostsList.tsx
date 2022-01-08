@@ -31,12 +31,25 @@ const PostsList = ({navigation}: PostsListProps) => {
   );
 
   return (
-    <View style={{padding: 15}}>
-      <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
-        Posts
-      </Text>
+    <View style={{flex: 1, padding: 15}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginBottom: 15,
+        }}>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 20,
+            textAlign: 'justify',
+            padding: 8,
+          }}>
+          Posts
+        </Text>
+        <Button title="+" onPress={() => navigation.navigate('AddPost')} />
+      </View>
       <FlatList data={orderedPosts} renderItem={renderPosts} />
-      <Button title="Add Post" onPress={() => navigation.navigate('AddPost')} />
     </View>
   );
 };
