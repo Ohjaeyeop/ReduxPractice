@@ -5,6 +5,7 @@ export interface PostState {
   title: string;
   content: string;
   user?: string;
+  date?: string;
 }
 
 const initialState: PostState[] = [
@@ -24,6 +25,7 @@ const postsSlice = createSlice({
         return {
           payload: {
             id: nanoid(),
+            date: new Date().toISOString(),
             title,
             content,
             user: userId,
