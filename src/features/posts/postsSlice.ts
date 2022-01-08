@@ -16,7 +16,7 @@ export interface PostState {
   };
 }
 
-const initialReactions = {
+const initialReactions: PostState['reactions'] = {
   thumbsUp: 0,
   hooray: 0,
   heart: 0,
@@ -49,7 +49,7 @@ const postsSlice = createSlice({
       reducer(state, action: PayloadAction<PostState>) {
         state.push(action.payload);
       },
-      prepare(title, content, userId, reactions) {
+      prepare(title, content, userId) {
         return {
           payload: {
             id: nanoid(),
@@ -57,7 +57,7 @@ const postsSlice = createSlice({
             title,
             content,
             user: userId,
-            reactions,
+            reactions: initialReactions,
           },
         };
       },
@@ -70,7 +70,10 @@ const postsSlice = createSlice({
         existingPost.content = content;
       }
     },
-    reactionAdded(state, action) {
+    reactionAdded(
+      state,
+      action: PayloadAction<{postId: string; reaction: string}>,
+    ) {
       const {postId, reaction} = action.payload;
       const existingPost = state.find(post => post.id === postId);
       if (existingPost) {
