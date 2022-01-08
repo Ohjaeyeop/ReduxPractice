@@ -1,9 +1,10 @@
 import React from 'react';
 import {useAppSelector} from '../../app/hooks';
-import {View, Text, FlatList, SafeAreaView, Button} from 'react-native';
+import {View, Text, FlatList, Button} from 'react-native';
 import {PostState} from './postsSlice';
+import {Props} from '../../App';
 
-const PostsList = ({navigation}) => {
+const PostsList = ({navigation}: Props) => {
   const posts = useAppSelector(state => state.posts);
 
   const renderPosts = ({item}: {item: PostState}) => (
