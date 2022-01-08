@@ -7,13 +7,21 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="PostList" component={PostsList} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#774ABC',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitle: 'Redux Essentials Example',
+        }}>
+        <Stack.Screen name="PostList" component={PostsList} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
