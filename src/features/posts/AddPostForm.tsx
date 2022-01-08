@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, Button} from 'react-native';
 
 const AddPostForm = () => {
   const [title, setTitle] = useState('');
@@ -31,11 +31,13 @@ const AddPostForm = () => {
           borderRadius: 5,
           borderColor: 'gray',
           padding: 5,
+          marginBottom: 15,
         }}
         multiline={true}
         onChangeText={text => setContent(text)}
         value={content}
       />
+      <Button title="Save Post" />
     </View>
   );
 };
