@@ -3,6 +3,7 @@ import {SinglePostProps} from '../../App';
 import {useAppSelector} from '../../app/hooks';
 import {View, Text, Button} from 'react-native';
 import PostAuthor from './PostAuthor';
+import ReactionButtons from './ReactionButtons';
 
 const SinglePostPage = ({navigation, route}: SinglePostProps) => {
   const {postId} = route.params;
@@ -25,6 +26,7 @@ const SinglePostPage = ({navigation, route}: SinglePostProps) => {
       <Text style={{fontWeight: 'bold', fontSize: 20}}>{post.title}</Text>
       <PostAuthor userId={post.user} />
       <Text>{post.content}</Text>
+      <ReactionButtons post={post} />
       <Button
         title="Edit Post"
         onPress={() => navigation.navigate('EditPost', {postId})}

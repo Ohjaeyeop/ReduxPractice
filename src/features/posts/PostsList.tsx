@@ -5,6 +5,7 @@ import {PostState} from './postsSlice';
 import {PostsListProps} from '../../App';
 import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
+import ReactionButtons from './ReactionButtons';
 
 const PostsList = ({navigation}: PostsListProps) => {
   const posts = useAppSelector(state => state.posts);
@@ -25,6 +26,7 @@ const PostsList = ({navigation}: PostsListProps) => {
       <PostAuthor userId={item.user} />
       <TimeAgo timestamp={item.date} />
       <Text style={{marginBottom: 15}}>{item.content}</Text>
+      <ReactionButtons post={item} />
     </TouchableOpacity>
   );
 
