@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {PostState, reactionAdded} from './postsSlice';
+import {PostState, reactionAdded, ReactionType} from './postsSlice';
 import {useAppDispatch} from '../../app/hooks';
 
 const reactionEmoji = {
@@ -18,7 +18,9 @@ const ReactionButtons = ({post}: {post: PostState}) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          dispatch(reactionAdded({postId: post.id, reaction: name}))
+          dispatch(
+            reactionAdded({postId: post.id, reaction: name as ReactionType}),
+          )
         }
         style={{
           borderWidth: 1,
@@ -30,7 +32,7 @@ const ReactionButtons = ({post}: {post: PostState}) => {
         }}
         key={name}>
         <Text>
-          {emoji} {post.reactions[name]}
+          {emoji} {post.reactions[name as ReactionType]}
         </Text>
       </TouchableOpacity>
     );

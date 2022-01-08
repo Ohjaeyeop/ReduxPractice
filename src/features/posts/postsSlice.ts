@@ -16,6 +16,8 @@ export interface PostState {
   };
 }
 
+export type ReactionType = 'thumbsUp' | 'hooray' | 'heart' | 'rocket' | 'eyes';
+
 const initialReactions: PostState['reactions'] = {
   thumbsUp: 0,
   hooray: 0,
@@ -72,7 +74,7 @@ const postsSlice = createSlice({
     },
     reactionAdded(
       state,
-      action: PayloadAction<{postId: string; reaction: string}>,
+      action: PayloadAction<{postId: string; reaction: ReactionType}>,
     ) {
       const {postId, reaction} = action.payload;
       const existingPost = state.find(post => post.id === postId);
