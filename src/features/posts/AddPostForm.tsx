@@ -1,22 +1,33 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
-import {useAppDispatch} from '../../app/hooks';
+import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {postAdded} from './postsSlice';
 import {AddPostProps} from '../../App';
+import RNPickerSelect from 'react-native-picker-select';
 
 const AddPostForm = ({navigation}: AddPostProps) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [userId, setUserId] = useState('');
+
   const dispatch = useAppDispatch();
+
+  const users = useAppSelector(state => state.users);
+
+  const onAuthorChanged = (value: string) => setUserId(value);
+
+  const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(postAdded(title, content));
+      dispatch(postAdded(title, content, userId));
       setTitle('');
       setContent('');
       navigation.navigate('PostsList');
     }
   };
+
+  const pickerItems = users.map(user => ({label: user.name, value: user.id}));
 
   return (
     <View style={{padding: 15}}>
@@ -36,6 +47,12 @@ const AddPostForm = ({navigation}: AddPostProps) => {
         onChangeText={text => setTitle(text)}
         value={title}
       />
+      <Text style={{fontSize: 15, marginBottom: 10}}>Author: </Text>
+      <RNPickerSelect
+        onValueChange={onAuthorChanged}
+        items={pickerItems}
+        style={pickerSelectStyles}
+      />
       <Text style={{fontSize: 15, marginBottom: 10}}>Content:</Text>
       <TextInput
         style={{
@@ -50,9 +67,24 @@ const AddPostForm = ({navigation}: AddPostProps) => {
         onChangeText={text => setContent(text)}
         value={content}
       />
-      <Button title="Save Post" onPress={onSavePostClicked} />
+      <Button
+        title="Save Post"
+        onPress={onSavePostClicked}
+        disabled={!canSave}
+      />
     </View>
   );
 };
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    marginBottom: 10,
+    color: '#000000',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+  },
+});
 
 export default AddPostForm;
