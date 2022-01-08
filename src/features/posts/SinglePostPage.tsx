@@ -1,9 +1,9 @@
 import React from 'react';
 import {SinglePostProps} from '../../App';
 import {useAppSelector} from '../../app/hooks';
-import {View, Text} from 'react-native';
+import {View, Text, Button} from 'react-native';
 
-const SinglePostPage = ({route}: SinglePostProps) => {
+const SinglePostPage = ({navigation, route}: SinglePostProps) => {
   const {postId} = route.params;
 
   const post = useAppSelector(state =>
@@ -25,6 +25,10 @@ const SinglePostPage = ({route}: SinglePostProps) => {
         {post.title}
       </Text>
       <Text>{post.content}</Text>
+      <Button
+        title="Edit Post"
+        onPress={() => navigation.navigate('EditPost', {postId})}
+      />
     </View>
   );
 };
