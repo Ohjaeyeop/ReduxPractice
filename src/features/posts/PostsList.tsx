@@ -4,9 +4,13 @@ import {View, Text, FlatList, Button, TouchableOpacity} from 'react-native';
 import {PostState} from './postsSlice';
 import {PostsListProps} from '../../App';
 import PostAuthor from './PostAuthor';
+import TimeAgo from './TimeAgo';
 
 const PostsList = ({navigation}: PostsListProps) => {
   const posts = useAppSelector(state => state.posts);
+  const orderedPosts = posts
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date));
 
   const renderPosts = ({item}: {item: PostState}) => (
     <TouchableOpacity
@@ -19,6 +23,7 @@ const PostsList = ({navigation}: PostsListProps) => {
       onPress={() => navigation.navigate('SinglePost', {postId: item.id})}>
       <Text style={{fontWeight: 'bold', fontSize: 15}}>{item.title}</Text>
       <PostAuthor userId={item.user} />
+      <TimeAgo timestamp={item.date} />
       <Text style={{marginBottom: 15}}>{item.content}</Text>
     </TouchableOpacity>
   );
@@ -28,7 +33,7 @@ const PostsList = ({navigation}: PostsListProps) => {
       <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
         Posts
       </Text>
-      <FlatList data={posts} renderItem={renderPosts} />
+      <FlatList data={orderedPosts} renderItem={renderPosts} />
       <Button title="Add Post" onPress={() => navigation.navigate('AddPost')} />
     </View>
   );
