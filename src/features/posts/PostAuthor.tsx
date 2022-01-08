@@ -7,7 +7,7 @@ const PostAuthor = ({userId}: {userId: string | undefined}) => {
     state.users.find(user => user.id === userId),
   );
   return (
-    <Text style={{fontSize: 12, marginBottom: 10}}>
+    <Text style={{fontSize: 12}}>
       by {author ? author.name : 'Unknown author'}
     </Text>
   );

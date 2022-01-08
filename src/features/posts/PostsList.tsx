@@ -17,14 +17,16 @@ const PostsList = ({navigation}: PostsListProps) => {
     <TouchableOpacity
       style={{
         marginBottom: 10,
-        padding: 5,
+        padding: 10,
         borderWidth: 1,
         borderRadius: 10,
       }}
       onPress={() => navigation.navigate('SinglePost', {postId: item.id})}>
       <Text style={{fontWeight: 'bold', fontSize: 15}}>{item.title}</Text>
-      <PostAuthor userId={item.user} />
-      <TimeAgo timestamp={item.date} />
+      <Text style={{marginBottom: 10}}>
+        <PostAuthor userId={item.user} />
+        <TimeAgo timestamp={item.date} />
+      </Text>
       <Text style={{marginBottom: 15}}>{item.content}</Text>
       <ReactionButtons post={item} />
     </TouchableOpacity>
