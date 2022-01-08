@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, Button} from 'react-native';
 import {useAppDispatch} from '../../app/hooks';
 import {postAdded} from './postsSlice';
-import {nanoid} from '@reduxjs/toolkit';
 import {AddPostProps} from '../../App';
 
 const AddPostForm = ({navigation}: AddPostProps) => {
@@ -12,11 +11,11 @@ const AddPostForm = ({navigation}: AddPostProps) => {
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(postAdded({id: nanoid(), title, content}));
+      dispatch(postAdded(title, content));
+      setTitle('');
+      setContent('');
+      navigation.navigate('PostsList');
     }
-    setTitle('');
-    setContent('');
-    navigation.navigate('PostsList');
   };
 
   return (
