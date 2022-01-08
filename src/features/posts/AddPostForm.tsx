@@ -3,8 +3,9 @@ import {View, Text, TextInput, Button} from 'react-native';
 import {useAppDispatch} from '../../app/hooks';
 import {postAdded} from './postsSlice';
 import {nanoid} from '@reduxjs/toolkit';
+import {AddPostProps} from '../../App';
 
-const AddPostForm = () => {
+const AddPostForm = ({navigation}: AddPostProps) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ const AddPostForm = () => {
     }
     setTitle('');
     setContent('');
+    navigation.navigate('PostsList');
   };
 
   return (

@@ -1,25 +1,26 @@
 import React from 'react';
 import {useAppSelector} from '../../app/hooks';
-import {View, Text, FlatList, Button} from 'react-native';
+import {View, Text, FlatList, Button, TouchableOpacity} from 'react-native';
 import {PostState} from './postsSlice';
-import {Props} from '../../App';
+import {PostsListProps} from '../../App';
 
-const PostsList = ({navigation}: Props) => {
+const PostsList = ({navigation}: PostsListProps) => {
   const posts = useAppSelector(state => state.posts);
 
   const renderPosts = ({item}: {item: PostState}) => (
-    <View
+    <TouchableOpacity
       style={{
         marginBottom: 10,
         padding: 5,
         borderWidth: 1,
         borderRadius: 10,
-      }}>
+      }}
+      onPress={() => navigation.navigate('SinglePost', {postId: item.id})}>
       <Text style={{fontWeight: 'bold', fontSize: 15, marginBottom: 10}}>
         {item.title}
       </Text>
       <Text style={{marginBottom: 10}}>{item.content}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
