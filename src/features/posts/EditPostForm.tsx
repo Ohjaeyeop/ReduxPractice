@@ -18,7 +18,15 @@ const EditPostForm = ({navigation, route}: EditPostProps) => {
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(postUpdated({id: postId, title, content}));
+      dispatch(
+        postUpdated({
+          id: postId,
+          title,
+          content,
+          date: post.date,
+          reactions: post.reactions,
+        }),
+      );
       navigation.navigate('SinglePost', {postId});
     }
   };
