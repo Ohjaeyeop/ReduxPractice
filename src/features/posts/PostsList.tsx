@@ -27,7 +27,9 @@ const PostsList = ({navigation}: PostsListProps) => {
         <PostAuthor userId={item.user} />
         <TimeAgo timestamp={item.date} />
       </Text>
-      <Text style={{marginBottom: 15}}>{item.content}</Text>
+      <Text style={{marginBottom: 15}} numberOfLines={2}>
+        {item.content}
+      </Text>
       <ReactionButtons post={item} />
     </TouchableOpacity>
   );
