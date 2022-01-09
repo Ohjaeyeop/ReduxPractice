@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {postAdded} from './postsSlice';
+import {addNewPost, postAdded} from './postsSlice';
 import {AddPostProps} from '../../App';
 import RNPickerSelect from 'react-native-picker-select';
+import {unwrapResult} from '@reduxjs/toolkit';
 
 const AddPostForm = ({navigation}: AddPostProps) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState('');
+  const [addRequestStatus, setAddRequestStatus] = useState('idle');
 
   const dispatch = useAppDispatch();
 
@@ -16,14 +18,26 @@ const AddPostForm = ({navigation}: AddPostProps) => {
 
   const onAuthorChanged = (value: string) => setUserId(value);
 
-  const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
+  const canSave =
+    [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
 
-  const onSavePostClicked = () => {
-    if (title && content) {
-      dispatch(postAdded(title, content, userId));
-      setTitle('');
-      setContent('');
-      navigation.navigate('PostsList');
+  const onSavePostClicked = async () => {
+    if (canSave) {
+      try {
+        setAddRequestStatus('pending');
+        const resultAction = await dispatch(
+          addNewPost({title, content, user: userId}),
+        );
+
+        unwrapResult(resultAction);
+        setTitle('');
+        setContent('');
+        setUserId('');
+      } catch (err) {
+        console.log('Failed to save the post: ', err);
+      } finally {
+        setAddRequestStatus('idle');
+      }
     }
   };
 
