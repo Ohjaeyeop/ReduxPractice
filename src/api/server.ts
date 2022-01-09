@@ -132,6 +132,7 @@ const serializePost = post => ({
 
 export const handlers = [
   rest.get('/fakeApi/posts', function (req, res, ctx) {
+    console.log(1);
     const posts = db.post.getAll().map(serializePost);
     return res(ctx.delay(ARTIFICIAL_DELAY_MS), ctx.json(posts));
   }),
