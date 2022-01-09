@@ -1,11 +1,6 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  nanoid,
-  PayloadAction,
-} from '@reduxjs/toolkit';
-import {sub} from 'date-fns';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
+import {client} from '../../api/client';
 
 export interface PostState {
   id: string;
