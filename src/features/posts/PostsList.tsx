@@ -11,6 +11,7 @@ const PostsList = ({navigation}: PostsListProps) => {
   const dispatch = useAppDispatch();
   const posts = useAppSelector(selectAllPosts);
   const postStatus = useAppSelector(state => state.posts.status);
+  const error = useAppSelector(state => state.posts.error);
 
   useEffect(() => {
     if (postStatus === 'idle') {
@@ -18,10 +19,19 @@ const PostsList = ({navigation}: PostsListProps) => {
     }
   }, [postStatus, dispatch]);
 
-  const orderedPosts = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
+  let content;
+  if (postStatus === 'loading') {
+    content = <View>Loading...</View>;
+  } else if (postStatus === 'succeeded') {
+    const orderedPosts = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+  } else if (postStatus === 'failed') {
+    content = <View>{error}</View>;
+  }
 
+  return <View>{content}</View>;
+  /*
   const renderPosts = ({item}: {item: PostState}) => (
     <TouchableOpacity
       style={{
@@ -65,6 +75,6 @@ const PostsList = ({navigation}: PostsListProps) => {
       <FlatList data={orderedPosts} renderItem={renderPosts} />
     </View>
   );
+  */
 };
-
 export default PostsList;
