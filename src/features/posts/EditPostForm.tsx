@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import {EditPostProps} from '../../App';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {Button, Text, TextInput, View} from 'react-native';
-import {PostState, postUpdated} from './postsSlice';
+import {PostState, postUpdated, selectPostById} from './postsSlice';
 
 const EditPostForm = ({navigation, route}: EditPostProps) => {
   const {postId} = route.params;
 
   const post = useAppSelector(state =>
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    state.posts.find(post => post.id === postId),
+    selectPostById(state, postId),
   ) as PostState;
 
   const [title, setTitle] = useState(post.title);

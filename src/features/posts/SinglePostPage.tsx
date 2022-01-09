@@ -5,14 +5,12 @@ import {View, Text, Button} from 'react-native';
 import PostAuthor from './PostAuthor';
 import ReactionButtons from './ReactionButtons';
 import TimeAgo from './TimeAgo';
+import {selectPostById} from './postsSlice';
 
 const SinglePostPage = ({navigation, route}: SinglePostProps) => {
   const {postId} = route.params;
 
-  const post = useAppSelector(state =>
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    state.posts.find(post => post.id === postId),
-  );
+  const post = useAppSelector(state => selectPostById(state, postId));
 
   if (!post) {
     return (

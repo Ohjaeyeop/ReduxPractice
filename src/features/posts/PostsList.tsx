@@ -1,14 +1,14 @@
 import React from 'react';
 import {useAppSelector} from '../../app/hooks';
 import {View, Text, FlatList, Button, TouchableOpacity} from 'react-native';
-import {PostState} from './postsSlice';
+import {PostState, selectAllPosts} from './postsSlice';
 import {PostsListProps} from '../../App';
 import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
 import ReactionButtons from './ReactionButtons';
 
 const PostsList = ({navigation}: PostsListProps) => {
-  const posts = useAppSelector(state => state.posts);
+  const posts = useAppSelector(selectAllPosts);
   const orderedPosts = posts
     .slice()
     .sort((a, b) => b.date.localeCompare(a.date));
