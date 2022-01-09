@@ -1,14 +1,23 @@
-import React from 'react';
-import {useAppSelector} from '../../app/hooks';
+import React, {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {View, Text, FlatList, Button, TouchableOpacity} from 'react-native';
-import {PostState, selectAllPosts} from './postsSlice';
+import {fetchPosts, PostState, selectAllPosts} from './postsSlice';
 import {PostsListProps} from '../../App';
 import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
 import ReactionButtons from './ReactionButtons';
 
 const PostsList = ({navigation}: PostsListProps) => {
+  const dispatch = useAppDispatch();
   const posts = useAppSelector(selectAllPosts);
+  const postStatus = useAppSelector(state => state.posts.status);
+
+  useEffect(() => {
+    if (postStatus === 'idle') {
+      dispatch(fetchPosts());
+    }
+  }, [postStatus, dispatch]);
+
   const orderedPosts = posts
     .slice()
     .sort((a, b) => b.date.localeCompare(a.date));
