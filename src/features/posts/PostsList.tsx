@@ -28,6 +28,6 @@ const PostsList = () => {
     content = <Text>{error}</Text>;
   }
 
-  return <View>{content}</View>;
+  return <>{content}</>;
 };
 export default PostsList;

@@ -31,7 +31,7 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
   );
 
   return (
-    <View style={{padding: 15}}>
+    <View style={{flex: 1, padding: 15}}>
       <View
         style={{
           flexDirection: 'row',
