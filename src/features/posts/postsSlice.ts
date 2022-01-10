@@ -46,7 +46,7 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
-  async initialPost => {
+  async (initialPost: {title: string; content: string; user: string}) => {
     const res = await fetch('/fakeApi/posts', {
       method: 'POST',
       body: JSON.stringify(initialPost),
@@ -80,7 +80,7 @@ const postsSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(fetchPosts.pending, (state, action) => {
+    builder.addCase(fetchPosts.pending, state => {
       state.status = 'loading';
     }),
       builder.addCase(fetchPosts.fulfilled, (state, action) => {

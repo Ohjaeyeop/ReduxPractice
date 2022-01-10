@@ -37,6 +37,7 @@ const AddPostForm = ({navigation}: AddPostProps) => {
         console.log('Failed to save the post: ', err);
       } finally {
         setAddRequestStatus('idle');
+        navigation.navigate('PostsList');
       }
     }
   };
