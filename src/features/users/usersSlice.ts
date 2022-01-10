@@ -5,10 +5,11 @@ interface UsersType {
   name: string;
 }
 
-const initialState = [];
+const initialState = [] as UsersType[];
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await fetch('/fakeApi/users');
+  const res = await fetch('/fakeApi/users');
+  const response = await res.json();
   return response.users;
 });
 

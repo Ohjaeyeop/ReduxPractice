@@ -1,11 +1,10 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {View, Text, FlatList, Button, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import {fetchPosts, PostState, selectAllPosts} from './postsSlice';
-import {PostsListProps} from '../../App';
 import PostExcerpt from './PostExcerpt';
 
-const PostsList = ({navigation}: PostsListProps) => {
+const PostsList = () => {
   const dispatch = useAppDispatch();
   const posts = useAppSelector(selectAllPosts);
   const postStatus = useAppSelector(state => state.posts.status);
@@ -30,8 +29,5 @@ const PostsList = ({navigation}: PostsListProps) => {
   }
 
   return <View>{content}</View>;
-  /*
-
-  */
 };
 export default PostsList;

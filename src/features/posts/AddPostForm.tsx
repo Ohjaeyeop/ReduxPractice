@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {addNewPost, postAdded} from './postsSlice';
+import {addNewPost} from './postsSlice';
 import {AddPostProps} from '../../App';
 import RNPickerSelect from 'react-native-picker-select';
 import {unwrapResult} from '@reduxjs/toolkit';

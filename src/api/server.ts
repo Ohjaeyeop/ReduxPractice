@@ -1,6 +1,10 @@
 import {Server, Model, Factory} from 'miragejs';
 import {nanoid} from '@reduxjs/toolkit';
 
+function randomName() {
+  return;
+}
+
 export function makeServer({environment = 'development'} = {}) {
   let server = new Server({
     environment,
@@ -11,14 +15,6 @@ export function makeServer({environment = 'development'} = {}) {
     },
 
     factories: {
-      user: Factory.extend({
-        name() {
-          return 'Oh';
-        },
-        id() {
-          return nanoid();
-        },
-      }),
       post: Factory.extend({
         id() {
           return nanoid();
@@ -39,7 +35,9 @@ export function makeServer({environment = 'development'} = {}) {
     },
 
     seeds(server) {
-      server.createList('user', 10);
+      server.create('user', {id: nanoid(), name: 'Kim'});
+      server.create('user', {id: nanoid(), name: 'Oh'});
+      server.create('user', {id: nanoid(), name: 'Park'});
       server.createList('post', 20);
     },
 

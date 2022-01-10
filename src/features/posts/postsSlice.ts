@@ -41,7 +41,8 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
   async initialPost => {
-    const response = await fetch('/fakeApi/posts', {post: initialPost});
+    const res = await fetch('/fakeApi/posts', {post: initialPost});
+    const response = await res.json();
     return response.post;
   },
 );
