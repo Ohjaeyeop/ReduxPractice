@@ -7,7 +7,7 @@ import TimeAgo from './TimeAgo';
 import {useNavigation} from '@react-navigation/native';
 import {PostsListProps} from '../../App';
 
-const PostExcerpt = ({posts}) => {
+const PostExcerpt = ({posts}: {posts: PostState[]}) => {
   const navigation = useNavigation<PostsListProps['navigation']>();
   const renderPosts = ({item}: {item: PostState}) => (
     <TouchableOpacity
@@ -31,7 +31,7 @@ const PostExcerpt = ({posts}) => {
   );
 
   return (
-    <View style={{flex: 1, padding: 15}}>
+    <View style={{padding: 15}}>
       <View
         style={{
           flexDirection: 'row',

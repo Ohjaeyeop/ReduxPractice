@@ -1,5 +1,4 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {client} from '../../api/client';
 
 interface UsersType {
   id: string;
@@ -9,7 +8,7 @@ interface UsersType {
 const initialState = [];
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await client.get('/fakeApi/users');
+  const response = await fetch('/fakeApi/users');
   return response.users;
 });
 

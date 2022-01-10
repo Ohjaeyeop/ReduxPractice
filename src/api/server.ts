@@ -1,3 +1,62 @@
+import {Server, Model, Factory} from 'miragejs';
+import {nanoid} from '@reduxjs/toolkit';
+
+export function makeServer({environment = 'development'} = {}) {
+  let server = new Server({
+    environment,
+
+    models: {
+      user: Model,
+      post: Model,
+    },
+
+    factories: {
+      user: Factory.extend({
+        name() {
+          return 'Oh';
+        },
+        id() {
+          return nanoid();
+        },
+      }),
+      post: Factory.extend({
+        id() {
+          return nanoid();
+        },
+        title() {
+          return 'Lorem Ipsum';
+        },
+        date() {
+          return new Date().toISOString();
+        },
+        content() {
+          return "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset s";
+        },
+        reactions() {
+          return {thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0};
+        },
+      }),
+    },
+
+    seeds(server) {
+      server.createList('user', 10);
+      server.createList('post', 20);
+    },
+
+    routes() {
+      this.get('/fakeApi/users', schema => {
+        return schema.all('user');
+      });
+      this.get('/fakeApi/posts', schema => {
+        return schema.all('post');
+      });
+    },
+  });
+
+  return server;
+}
+
+/*
 import {rest, setupWorker} from 'msw';
 import {factory, oneOf, manyOf, primaryKey} from '@mswjs/data';
 import {nanoid} from '@reduxjs/toolkit';
@@ -22,6 +81,7 @@ const ARTIFICIAL_DELAY_MS = 2000;
 // a consistent set of users / entries each time the page loads.
 // This can be reset by deleting this localStorage value,
 // or turned off by setting `useSeededRNG` to false.
+/*
 let useSeededRNG = true;
 
 let rng = seedrandom();
@@ -55,7 +115,7 @@ const randomFromArray = array => {
 };
 
 /* MSW Data Model Setup */
-
+/*
 export const db = factory({
   user: {
     id: primaryKey(nanoid),
@@ -129,7 +189,7 @@ const serializePost = post => ({
 });
 
 /* MSW REST API Handlers */
-
+/*
 export const handlers = [
   rest.get('/fakeApi/posts', function (req, res, ctx) {
     console.log(1);
@@ -226,8 +286,8 @@ export const worker = setupWorker(...handlers);
 // worker.printHandlers() // Optional: nice for debugging to see all available route handlers that will be intercepted
 
 /* Mock Websocket Setup */
-
-const socketServer = new MockSocketServer('ws://localhost');
+/*
+const socketServer = new WebSocket('ws://localhost:8080');
 
 let currentSocket;
 
@@ -272,7 +332,7 @@ socketServer.on('connection', socket => {
 });
 
 /* Random Notifications Generation */
-
+/*
 const notificationTemplates = [
   'poked you',
   'says hi!',
@@ -306,3 +366,4 @@ function generateRandomNotifications(since, numNotifications, db) {
 
   return notifications;
 }
+*/

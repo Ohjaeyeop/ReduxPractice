@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {client} from '../../api/client';
 
 export interface PostState {
   id: string;
@@ -34,14 +33,15 @@ const initialState = {
 };
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const response = await client.get('/fakeApi/posts');
+  const res = await fetch('/fakeApi/posts');
+  const response = await res.json();
   return response.posts;
 });
 
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
   async initialPost => {
-    const response = await client.post('/fakeApi/posts', {post: initialPost});
+    const response = await fetch('/fakeApi/posts', {post: initialPost});
     return response.post;
   },
 );
@@ -75,6 +75,7 @@ const postsSlice = createSlice({
     },
     [fetchPosts.fulfilled]: (state, action) => {
       state.status = 'succeeded';
+      state.posts = state.posts.concat(action.payload);
     },
     [fetchPosts.rejected]: (state, action) => {
       state.status = 'failed';

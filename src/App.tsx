@@ -8,6 +8,20 @@ import {
 import AddPostForm from './features/posts/AddPostForm';
 import SinglePostPage from './features/posts/SinglePostPage';
 import EditPostForm from './features/posts/EditPostForm';
+import {makeServer} from './api/server';
+
+declare global {
+  interface Window {
+    server: any;
+  }
+}
+
+if (process.env.NODE_ENV === 'development') {
+  if (window.server) {
+    window.server.shutdown();
+  }
+  window.server = makeServer();
+}
 
 type RootStackParamList = {
   PostsList: undefined;
