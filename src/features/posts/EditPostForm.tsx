@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import {EditPostProps} from '../../App';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {Button, Text, TextInput, View} from 'react-native';
-import {PostState, postUpdated} from './postsSlice';
+import {PostState, postUpdated, selectPostById} from './postsSlice';
 
 const EditPostForm = ({navigation, route}: EditPostProps) => {
   const {postId} = route.params;
 
   const post = useAppSelector(state =>
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    state.posts.find(post => post.id === postId),
+    selectPostById(state, postId),
   ) as PostState;
 
   const [title, setTitle] = useState(post.title);
@@ -19,7 +18,15 @@ const EditPostForm = ({navigation, route}: EditPostProps) => {
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(postUpdated({id: postId, title, content}));
+      dispatch(
+        postUpdated({
+          id: postId,
+          title,
+          content,
+          date: post.date,
+          reactions: post.reactions,
+        }),
+      );
       navigation.navigate('SinglePost', {postId});
     }
   };
@@ -45,7 +52,7 @@ const EditPostForm = ({navigation, route}: EditPostProps) => {
       <Text style={{fontSize: 15, marginBottom: 10}}>Content:</Text>
       <TextInput
         style={{
-          height: 100,
+          height: 150,
           borderWidth: 1,
           borderRadius: 5,
           borderColor: 'gray',

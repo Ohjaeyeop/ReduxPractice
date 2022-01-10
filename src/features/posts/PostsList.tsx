@@ -1,59 +1,33 @@
-import React from 'react';
-import {useAppSelector} from '../../app/hooks';
-import {View, Text, FlatList, Button, TouchableOpacity} from 'react-native';
-import {PostState} from './postsSlice';
-import {PostsListProps} from '../../App';
-import PostAuthor from './PostAuthor';
-import TimeAgo from './TimeAgo';
-import ReactionButtons from './ReactionButtons';
+import React, {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {Text} from 'react-native';
+import {fetchPosts, selectAllPosts} from './postsSlice';
+import PostExcerpt from './PostExcerpt';
 
-const PostsList = ({navigation}: PostsListProps) => {
-  const posts = useAppSelector(state => state.posts);
-  const orderedPosts = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
+const PostsList = () => {
+  const dispatch = useAppDispatch();
+  const posts = useAppSelector(selectAllPosts);
+  const postStatus = useAppSelector(state => state.posts.status);
+  const error = useAppSelector(state => state.posts.error);
 
-  const renderPosts = ({item}: {item: PostState}) => (
-    <TouchableOpacity
-      style={{
-        marginBottom: 10,
-        padding: 10,
-        borderWidth: 1,
-        borderRadius: 10,
-      }}
-      onPress={() => navigation.navigate('SinglePost', {postId: item.id})}>
-      <Text style={{fontWeight: 'bold', fontSize: 15}}>{item.title}</Text>
-      <Text style={{marginBottom: 10}}>
-        <PostAuthor userId={item.user} />
-        <TimeAgo timestamp={item.date} />
-      </Text>
-      <Text style={{marginBottom: 15}}>{item.content}</Text>
-      <ReactionButtons post={item} />
-    </TouchableOpacity>
-  );
+  useEffect(() => {
+    if (postStatus === 'idle') {
+      dispatch(fetchPosts());
+    }
+  }, [postStatus, dispatch]);
 
-  return (
-    <View style={{flex: 1, padding: 15}}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginBottom: 15,
-        }}>
-        <Text
-          style={{
-            fontWeight: 'bold',
-            fontSize: 20,
-            textAlign: 'justify',
-            padding: 8,
-          }}>
-          Posts
-        </Text>
-        <Button title="+" onPress={() => navigation.navigate('AddPost')} />
-      </View>
-      <FlatList data={orderedPosts} renderItem={renderPosts} />
-    </View>
-  );
+  let content;
+  if (postStatus === 'loading') {
+    content = <Text>Loading...</Text>;
+  } else if (postStatus === 'succeeded') {
+    const orderedPosts = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+    content = <PostExcerpt posts={orderedPosts} />;
+  } else if (postStatus === 'failed') {
+    content = <Text>{error}</Text>;
+  }
+
+  return <>{content}</>;
 };
-
 export default PostsList;
