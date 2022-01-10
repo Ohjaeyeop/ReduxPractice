@@ -26,10 +26,16 @@ const initialReactions: PostState['reactions'] = {
   eyes: 0,
 };
 
-const initialState = {
+interface StateType {
+  posts: PostState[];
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | undefined;
+}
+
+const initialState: StateType = {
   posts: [],
   status: 'idle',
-  error: null,
+  error: undefined,
 };
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
@@ -73,25 +79,25 @@ const postsSlice = createSlice({
       }
     },
   },
-  extraReducers: {
-    [fetchPosts.pending]: (state, action) => {
+  extraReducers: builder => {
+    builder.addCase(fetchPosts.pending, (state, action) => {
       state.status = 'loading';
-    },
-    [fetchPosts.fulfilled]: (state, action) => {
-      state.status = 'succeeded';
-      state.posts = state.posts.concat(action.payload);
-    },
-    [fetchPosts.rejected]: (state, action) => {
-      state.status = 'failed';
-      state.error = action.error.message;
-    },
-    [addNewPost.fulfilled]: (state, action) => {
-      state.posts.push(action.payload);
-    },
+    }),
+      builder.addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.posts = state.posts.concat(action.payload);
+      }),
+      builder.addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      }),
+      builder.addCase(addNewPost.fulfilled, (state, action) => {
+        state.posts.push(action.payload);
+      });
   },
 });
 
-export const {postAdded, postUpdated, reactionAdded} = postsSlice.actions;
+export const {postUpdated, reactionAdded} = postsSlice.actions;
 
 export default postsSlice.reducer;
 
