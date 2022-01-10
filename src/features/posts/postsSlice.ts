@@ -74,18 +74,18 @@ const postsSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchPosts.pending, state => {
       state.status = 'loading';
-    }),
-      builder.addCase(fetchPosts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.posts = state.posts.concat(action.payload);
-      }),
-      builder.addCase(fetchPosts.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      }),
-      builder.addCase(addNewPost.fulfilled, (state, action) => {
-        state.posts.push(action.payload);
-      });
+    });
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.posts = state.posts.concat(action.payload);
+    });
+    builder.addCase(fetchPosts.rejected, (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message;
+    });
+    builder.addCase(addNewPost.fulfilled, (state, action) => {
+      state.posts.push(action.payload);
+    });
   },
 });
 
