@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {View, Text} from 'react-native';
-import {fetchPosts, PostState, selectAllPosts} from './postsSlice';
+import {Text} from 'react-native';
+import {fetchPosts, selectAllPosts} from './postsSlice';
 import PostExcerpt from './PostExcerpt';
 
 const PostsList = () => {
