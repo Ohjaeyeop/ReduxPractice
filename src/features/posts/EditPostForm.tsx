@@ -52,7 +52,7 @@ const EditPostForm = ({navigation, route}: EditPostProps) => {
       <Text style={{fontSize: 15, marginBottom: 10}}>Content:</Text>
       <TextInput
         style={{
-          height: 100,
+          height: 150,
           borderWidth: 1,
           borderRadius: 5,
           borderColor: 'gray',

@@ -18,14 +18,6 @@ export interface PostState {
 
 export type ReactionType = 'thumbsUp' | 'hooray' | 'heart' | 'rocket' | 'eyes';
 
-const initialReactions: PostState['reactions'] = {
-  thumbsUp: 0,
-  hooray: 0,
-  heart: 0,
-  rocket: 0,
-  eyes: 0,
-};
-
 interface StateType {
   posts: PostState[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';

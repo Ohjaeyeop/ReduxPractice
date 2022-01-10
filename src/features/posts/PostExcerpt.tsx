@@ -31,12 +31,13 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
   );
 
   return (
-    <View style={{flex: 1, padding: 15}}>
+    <View style={{flex: 1}}>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginBottom: 15,
+          marginVertical: 15,
+          paddingHorizontal: 15,
         }}>
         <Text
           style={{
@@ -49,7 +50,11 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
         </Text>
         <Button title="+" onPress={() => navigation.navigate('AddPost')} />
       </View>
-      <FlatList data={posts} renderItem={renderPosts} />
+      <FlatList
+        data={posts}
+        renderItem={renderPosts}
+        style={{paddingHorizontal: 15}}
+      />
     </View>
   );
 };
