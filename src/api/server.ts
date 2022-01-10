@@ -1,10 +1,6 @@
 import {Server, Model, Factory} from 'miragejs';
 import {nanoid} from '@reduxjs/toolkit';
 
-function randomName() {
-  return;
-}
-
 export function makeServer({environment = 'development'} = {}) {
   let server = new Server({
     environment,
@@ -47,6 +43,17 @@ export function makeServer({environment = 'development'} = {}) {
       });
       this.get('/fakeApi/posts', schema => {
         return schema.all('post');
+      });
+      this.post('/fakeApi/posts', (schema, request) => {
+        const post = JSON.parse(request.requestBody);
+        return {
+          post: {
+            ...post,
+            id: nanoid(),
+            date: new Date().toISOString(),
+            reactions: {thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0},
+          },
+        };
       });
     },
   });
