@@ -20,10 +20,7 @@ const PostsList = () => {
   if (postStatus === 'loading') {
     content = <Text>Loading...</Text>;
   } else if (postStatus === 'succeeded') {
-    const orderedPosts = posts
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date));
-    content = <PostExcerpt posts={orderedPosts} />;
+    content = <PostExcerpt posts={posts} />;
   } else if (postStatus === 'failed') {
     content = <Text>{error}</Text>;
   }
