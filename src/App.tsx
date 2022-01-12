@@ -12,6 +12,7 @@ import {makeServer} from './api/server';
 import auth from '@react-native-firebase/auth';
 import LogInForm from './features/users/LogInForm';
 import SignUpForm from './features/users/SignUpForm';
+import {useUser} from './contexts/userContext';
 
 declare global {
   interface Window {
@@ -62,10 +63,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  const {user, setUser} = useUser();
 
   function onAuthStateChanged(user) {
     setUser(user);
+    console.log(user);
     if (initializing) setInitializing(false);
   }
 

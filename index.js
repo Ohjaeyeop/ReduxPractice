@@ -5,12 +5,15 @@ import {name as appName} from './app.json';
 import {Provider} from 'react-redux';
 import {store} from './src/app/store';
 import {fetchUsers} from './src/features/users/usersSlice';
+import {UserProvider} from './src/contexts/userContext';
 
 store.dispatch(fetchUsers());
 
 const RnRedux = () => (
   <Provider store={store}>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </Provider>
 );
 

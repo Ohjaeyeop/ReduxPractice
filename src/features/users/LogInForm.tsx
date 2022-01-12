@@ -18,6 +18,8 @@ const LogInForm = ({navigation}: LogInProps) => {
           borderColor: 'gray',
           padding: 5,
         }}
+        autoCapitalize={'none'}
+        autoCorrect={false}
       />
       <Text style={{fontSize: 15, marginBottom: 10}}>Password:</Text>
       <TextInput
@@ -29,6 +31,7 @@ const LogInForm = ({navigation}: LogInProps) => {
           padding: 5,
           marginBottom: 15,
         }}
+        secureTextEntry={true}
       />
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <Button title="LogIn" />

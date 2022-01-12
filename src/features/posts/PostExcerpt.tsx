@@ -6,9 +6,19 @@ import {PostState} from './postsSlice';
 import TimeAgo from './TimeAgo';
 import {useNavigation} from '@react-navigation/native';
 import {PostsListProps} from '../../App';
+import {useUser} from '../../contexts/userContext';
+import auth from '@react-native-firebase/auth';
 
 const PostExcerpt = ({posts}: {posts: PostState[]}) => {
   const navigation = useNavigation<PostsListProps['navigation']>();
+  const {user} = useUser();
+
+  const signOut = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('logout'));
+  };
+
   const renderPosts = ({item}: {item: PostState}) => (
     <TouchableOpacity
       style={{
@@ -49,7 +59,11 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
           Posts
         </Text>
         <Button title="+" onPress={() => navigation.navigate('AddPost')} />
-        <Button title="LogIn" onPress={() => navigation.navigate('LogIn')} />
+        {user ? (
+          <Button title="Logout" onPress={signOut} />
+        ) : (
+          <Button title="LogIn" onPress={() => navigation.navigate('LogIn')} />
+        )}
       </View>
       <FlatList
         data={posts}
