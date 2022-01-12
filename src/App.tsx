@@ -10,8 +10,8 @@ import SinglePostPage from './features/posts/SinglePostPage';
 import EditPostForm from './features/posts/EditPostForm';
 import {makeServer} from './api/server';
 import auth from '@react-native-firebase/auth';
-import {Text, View} from 'react-native';
 import LogInForm from './features/users/LogInForm';
+import SignUpForm from './features/users/SignUpForm';
 
 declare global {
   interface Window {
@@ -32,6 +32,7 @@ type RootStackParamList = {
   SinglePost: {postId: string};
   EditPost: {postId: string};
   LogIn: undefined;
+  SignUp: undefined;
 };
 
 export type PostsListProps = NativeStackScreenProps<
@@ -92,6 +93,7 @@ const App = () => {
         <Stack.Screen name="SinglePost" component={SinglePostPage} />
         <Stack.Screen name="EditPost" component={EditPostForm} />
         <Stack.Screen name="LogIn" component={LogInForm} />
+        <Stack.Screen name="SignUp" component={SignUpForm} />
       </Stack.Navigator>
     </NavigationContainer>
   );
