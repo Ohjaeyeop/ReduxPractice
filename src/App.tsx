@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PostsList from './features/posts/PostsList';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -9,6 +9,9 @@ import AddPostForm from './features/posts/AddPostForm';
 import SinglePostPage from './features/posts/SinglePostPage';
 import EditPostForm from './features/posts/EditPostForm';
 import {makeServer} from './api/server';
+import auth from '@react-native-firebase/auth';
+import {Text, View} from 'react-native';
+import LogInForm from './features/users/LogInForm';
 
 declare global {
   interface Window {
@@ -28,6 +31,7 @@ type RootStackParamList = {
   AddPost: undefined;
   SinglePost: {postId: string};
   EditPost: {postId: string};
+  LogIn: undefined;
 };
 
 export type PostsListProps = NativeStackScreenProps<
@@ -53,6 +57,23 @@ export type EditPostProps = NativeStackScreenProps<
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  if (initializing) {
+    return null;
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -70,6 +91,7 @@ const App = () => {
         <Stack.Screen name="AddPost" component={AddPostForm} />
         <Stack.Screen name="SinglePost" component={SinglePostPage} />
         <Stack.Screen name="EditPost" component={EditPostForm} />
+        <Stack.Screen name="LogIn" component={LogInForm} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {Text} from 'react-native';
+import {ActivityIndicator, Text, View} from 'react-native';
 import {fetchPosts, selectAllPosts} from './postsSlice';
 import PostExcerpt from './PostExcerpt';
 
@@ -18,7 +18,11 @@ const PostsList = () => {
 
   let content;
   if (postStatus === 'loading') {
-    content = <Text>Loading...</Text>;
+    content = (
+      <View style={{flex: 1, justifyContent: 'center', alignContent: 'center'}}>
+        <ActivityIndicator />
+      </View>
+    );
   } else if (postStatus === 'succeeded') {
     content = <PostExcerpt posts={posts} />;
   } else if (postStatus === 'failed') {
