@@ -14,6 +14,10 @@ const AddPostForm = ({navigation}: AddPostProps) => {
 
   const dispatch = useAppDispatch();
 
+  if (!user) {
+    return;
+  }
+
   const canSave =
     [title, content].every(Boolean) && addRequestStatus === 'idle';
 

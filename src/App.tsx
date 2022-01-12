@@ -12,7 +12,7 @@ import {makeServer} from './api/server';
 import auth from '@react-native-firebase/auth';
 import SignInForm from './features/users/SignInForm';
 import SignUpForm from './features/users/SignUpForm';
-import {useUser} from './contexts/userContext';
+import {UserType, useUser} from './contexts/userContext';
 import MyPostsList from './features/users/MyPostsList';
 
 declare global {
@@ -69,11 +69,13 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
-  const {user, setUser} = useUser();
+  const {setUser} = useUser();
 
-  function onAuthStateChanged(user) {
+  function onAuthStateChanged(user: any) {
     setUser(user);
-    if (initializing) setInitializing(false);
+    if (initializing) {
+      setInitializing(false);
+    }
   }
 
   useEffect(() => {

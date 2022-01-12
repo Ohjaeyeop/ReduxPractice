@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, FlatList, Text, TouchableOpacity, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {MyPostsListProps} from '../../App';
-import {useUser} from '../../contexts/userContext';
+import {UserType, useUser} from '../../contexts/userContext';
 import {createSelector} from '@reduxjs/toolkit';
 import {PostState, selectAllPosts} from '../posts/postsSlice';
 import PostAuthor from '../posts/PostAuthor';
@@ -13,7 +13,7 @@ import {useAppSelector} from '../../app/hooks';
 const MyPostsList = ({navigation}: MyPostsListProps) => {
   const {user} = useUser();
   const selectPostsByUser = createSelector([selectAllPosts], posts =>
-    posts.filter(post => post.user === user.email),
+    posts.filter(post => post.user === user?.email),
   );
   const posts = useAppSelector(state => selectPostsByUser(state));
 
@@ -45,7 +45,7 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
         navigation.navigate('PostsList');
       });
   };
-  const displayName = user.email.split('@')[0];
+  const displayName = user?.email.split('@')[0];
   return (
     <View style={{flex: 1, paddingHorizontal: 15}}>
       <View

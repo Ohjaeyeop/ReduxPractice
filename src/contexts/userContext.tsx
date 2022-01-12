@@ -7,14 +7,17 @@ import React, {
   useState,
 } from 'react';
 
-interface UserType {
+export interface UserType {
   email: string;
 }
 
-const UserContext = createContext<{
-  user: UserType | null;
-  setUser: Dispatch<SetStateAction<UserType | null>>;
-} | null>(null);
+const UserContext = createContext<
+  | {
+      user: UserType | null;
+      setUser: Dispatch<SetStateAction<UserType | null>>;
+    }
+  | undefined
+>(undefined);
 
 function UserProvider({children}: {children: ReactNode}) {
   const [user, setUser] = useState<UserType | null>(null);
