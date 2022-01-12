@@ -1,8 +1,8 @@
-import {Server, Model, Factory} from 'miragejs';
+import {Factory, Model, Server} from 'miragejs';
 import {nanoid} from '@reduxjs/toolkit';
 
 export function makeServer({environment = 'development'} = {}) {
-  let server = new Server({
+  return new Server({
     environment,
 
     models: {
@@ -51,6 +51,4 @@ export function makeServer({environment = 'development'} = {}) {
       });
     },
   });
-
-  return server;
 }

@@ -12,7 +12,7 @@ import {makeServer} from './api/server';
 import auth from '@react-native-firebase/auth';
 import SignInForm from './features/users/SignInForm';
 import SignUpForm from './features/users/SignUpForm';
-import {UserType, useUser} from './contexts/userContext';
+import {useUser} from './contexts/userContext';
 import MyPostsList from './features/users/MyPostsList';
 
 declare global {

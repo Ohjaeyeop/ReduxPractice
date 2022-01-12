@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PostAuthor from './PostAuthor';
 import ReactionButtons from './ReactionButtons';
-import {Button, FlatList, TouchableOpacity, View, Text} from 'react-native';
+import {
+  Button,
+  FlatList,
+  TouchableOpacity,
+  View,
+  Text,
+  Modal,
+  SafeAreaView,
+} from 'react-native';
 import {PostState} from './postsSlice';
 import TimeAgo from './TimeAgo';
 import {useNavigation} from '@react-navigation/native';
 import {PostsListProps} from '../../App';
 import {useUser} from '../../contexts/userContext';
+import AddPostForm from './AddPostForm';
 
 const PostExcerpt = ({posts}: {posts: PostState[]}) => {
   const navigation = useNavigation<PostsListProps['navigation']>();
+  const [modalVisible, setModalVisible] = useState(false);
   const {user} = useUser();
 
   const renderPosts = ({item}: {item: PostState}) => (
@@ -72,12 +82,17 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
         renderItem={renderPosts}
         style={{paddingHorizontal: 15}}
       />
+      <Modal animationType="slide" visible={modalVisible}>
+        <SafeAreaView>
+          <AddPostForm onSaveClick={setModalVisible} />
+        </SafeAreaView>
+      </Modal>
       {user && (
         <View style={{padding: 10, marginBottom: 20}}>
           <Button
             title="Add Post"
             color="#774ABC"
-            onPress={() => navigation.navigate('AddPost')}
+            onPress={() => setModalVisible(!modalVisible)}
           />
         </View>
       )}

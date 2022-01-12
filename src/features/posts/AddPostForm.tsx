@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
+import {View, Text, TextInput, Button, TouchableOpacity} from 'react-native';
 import {useAppDispatch} from '../../app/hooks';
 import {addNewPost} from './postsSlice';
-import {AddPostProps} from '../../App';
 import {unwrapResult} from '@reduxjs/toolkit';
 import {useUser} from '../../contexts/userContext';
 
-const AddPostForm = ({navigation}: AddPostProps) => {
+const AddPostForm = ({
+  onSaveClick,
+}: {
+  onSaveClick: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [addRequestStatus, setAddRequestStatus] = useState('idle');
@@ -15,7 +18,7 @@ const AddPostForm = ({navigation}: AddPostProps) => {
   const dispatch = useAppDispatch();
 
   if (!user) {
-    return;
+    return null;
   }
 
   const canSave =
@@ -36,16 +39,23 @@ const AddPostForm = ({navigation}: AddPostProps) => {
         console.log('Failed to save the post: ', err);
       } finally {
         setAddRequestStatus('idle');
-        navigation.navigate('PostsList');
+        onSaveClick(false);
       }
     }
   };
 
   return (
     <View style={{padding: 15}}>
-      <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
-        Add a New Post
-      </Text>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
+          Add a New Post
+        </Text>
+        <TouchableOpacity
+          style={{padding: 5}}
+          onPress={() => onSaveClick(false)}>
+          <Text style={{fontWeight: 'bold', fontSize: 15}}>X</Text>
+        </TouchableOpacity>
+      </View>
       <Text style={{fontSize: 15, marginBottom: 10}}>Post Title:</Text>
       <TextInput
         style={{
