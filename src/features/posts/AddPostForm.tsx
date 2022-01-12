@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {View, Text, TextInput, Button} from 'react-native';
+import {useAppDispatch} from '../../app/hooks';
 import {addNewPost} from './postsSlice';
 import {AddPostProps} from '../../App';
 import {unwrapResult} from '@reduxjs/toolkit';
