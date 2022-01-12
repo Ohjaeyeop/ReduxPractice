@@ -15,7 +15,7 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
   const renderPosts = ({item}: {item: PostState}) => (
     <TouchableOpacity
       style={{
-        marginBottom: 10,
+        marginBottom: 25,
         padding: 10,
         borderWidth: 1,
         borderRadius: 10,
