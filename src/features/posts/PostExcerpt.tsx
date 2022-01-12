@@ -54,7 +54,7 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
         {user ? (
           <Button
             title="My Page"
-            color="#774ABC"
+            color="black"
             onPress={() => {
               navigation.navigate('MyPostsList');
             }}

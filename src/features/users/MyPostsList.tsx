@@ -22,11 +22,9 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
           justifyContent: 'space-between',
           padding: 15,
         }}>
-        <Text style={{fontSize: 18, color: '#774ABC', paddingTop: 8}}>
-          {displayName} 님
-        </Text>
+        <Text style={{fontSize: 18, paddingTop: 8}}>{displayName} 님</Text>
         <View>
-          <Button title="Sign Out" color="#774ABC" onPress={signOut} />
+          <Button title="Sign Out" color="black" onPress={signOut} />
         </View>
       </View>
     </View>

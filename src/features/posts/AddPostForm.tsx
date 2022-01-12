@@ -3,36 +3,31 @@ import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {addNewPost} from './postsSlice';
 import {AddPostProps} from '../../App';
-import RNPickerSelect from 'react-native-picker-select';
 import {unwrapResult} from '@reduxjs/toolkit';
+import {useUser} from '../../contexts/userContext';
 
 const AddPostForm = ({navigation}: AddPostProps) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [userId, setUserId] = useState('');
   const [addRequestStatus, setAddRequestStatus] = useState('idle');
+  const {user} = useUser();
 
   const dispatch = useAppDispatch();
 
-  const users = useAppSelector(state => state.users);
-
-  const onAuthorChanged = (value: string) => setUserId(value);
-
   const canSave =
-    [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
+    [title, content].every(Boolean) && addRequestStatus === 'idle';
 
   const onSavePostClicked = async () => {
     if (canSave) {
       try {
         setAddRequestStatus('pending');
         const resultAction = await dispatch(
-          addNewPost({title, content, user: userId}),
+          addNewPost({title, content, user: user.email}),
         );
 
         unwrapResult(resultAction);
         setTitle('');
         setContent('');
-        setUserId('');
       } catch (err) {
         console.log('Failed to save the post: ', err);
       } finally {
@@ -41,8 +36,6 @@ const AddPostForm = ({navigation}: AddPostProps) => {
       }
     }
   };
-
-  const pickerItems = users.map(user => ({label: user.name, value: user.id}));
 
   return (
     <View style={{padding: 15}}>
@@ -61,12 +54,6 @@ const AddPostForm = ({navigation}: AddPostProps) => {
         }}
         onChangeText={text => setTitle(text)}
         value={title}
-      />
-      <Text style={{fontSize: 15, marginBottom: 10}}>Author: </Text>
-      <RNPickerSelect
-        onValueChange={onAuthorChanged}
-        items={pickerItems}
-        style={pickerSelectStyles}
       />
       <Text style={{fontSize: 15, marginBottom: 10}}>Content:</Text>
       <TextInput
@@ -91,16 +78,5 @@ const AddPostForm = ({navigation}: AddPostProps) => {
     </View>
   );
 };
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    marginBottom: 10,
-    color: '#000000',
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-  },
-});
 
 export default AddPostForm;
