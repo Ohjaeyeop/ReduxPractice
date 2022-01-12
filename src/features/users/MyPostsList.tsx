@@ -47,12 +47,12 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
   };
   const displayName = user.email.split('@')[0];
   return (
-    <View>
+    <View style={{flex: 1, paddingHorizontal: 15}}>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          padding: 15,
+          paddingVertical: 15,
         }}>
         <Text style={{fontSize: 18, paddingTop: 8}}>{displayName} 님</Text>
         <View>
