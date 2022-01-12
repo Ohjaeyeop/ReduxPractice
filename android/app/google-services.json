@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "537408528703",
+    "project_id": "bulletin-board-c6f97",
+    "storage_bucket": "bulletin-board-c6f97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537408528703:android:b95861ce823b82d9eab38a",
+        "android_client_info": {
+          "package_name": "com.practiceredux"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537408528703-ofcst94ko8smaackb81uk8chgf1km6hv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.practiceredux",
+            "certificate_hash": "6145f7c00e1fa6c92781c3b260618ed9bf87dc18"
+          }
+        },
+        {
+          "client_id": "537408528703-f5umm24majt4jgrru7tt69av971ihos3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBilC6SnzRPIW_MGNd0CA1uJ51ZAdY-HtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537408528703-f5umm24majt4jgrru7tt69av971ihos3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
