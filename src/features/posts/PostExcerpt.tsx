@@ -58,7 +58,6 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
           }}>
           Posts
         </Text>
-        <Button title="+" onPress={() => navigation.navigate('AddPost')} />
         {user ? (
           <Button title="Sign Out" onPress={signOut} />
         ) : (
@@ -73,6 +72,13 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
         renderItem={renderPosts}
         style={{paddingHorizontal: 15}}
       />
+      <View style={{padding: 10, marginBottom: 20}}>
+        <Button
+          title="Add Post"
+          color="#774ABC"
+          onPress={() => navigation.navigate('AddPost')}
+        />
+      </View>
     </View>
   );
 };
