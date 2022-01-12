@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, FlatList, Text, TouchableOpacity, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {MyPostsListProps} from '../../App';
-import {UserType, useUser} from '../../contexts/userContext';
+import {useUser} from '../../contexts/userContext';
 import {createSelector} from '@reduxjs/toolkit';
 import {PostState, selectAllPosts} from '../posts/postsSlice';
 import PostAuthor from '../posts/PostAuthor';

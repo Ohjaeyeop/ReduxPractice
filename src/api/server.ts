@@ -29,6 +29,7 @@ export function makeServer({environment = 'development'} = {}) {
       }),
     },
 
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     seeds(server) {
       server.createList('post', 15);
     },

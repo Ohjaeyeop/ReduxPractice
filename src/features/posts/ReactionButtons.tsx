@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {PostState, reactionAdded, ReactionType} from './postsSlice';
 import {useAppDispatch} from '../../app/hooks';
+import {useUser} from '../../contexts/userContext';
 
 const reactionEmoji = {
   thumbsUp: '👍',
@@ -13,6 +14,7 @@ const reactionEmoji = {
 
 const ReactionButtons = ({post}: {post: PostState}) => {
   const dispatch = useAppDispatch();
+  const {user} = useUser();
 
   const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {
     return (
@@ -30,7 +32,8 @@ const ReactionButtons = ({post}: {post: PostState}) => {
           padding: 2,
           marginRight: 5,
         }}
-        key={name}>
+        key={name}
+        disabled={user === null}>
         <Text>
           {emoji} {post.reactions[name as ReactionType]}
         </Text>
