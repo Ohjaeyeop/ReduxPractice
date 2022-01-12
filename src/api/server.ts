@@ -6,7 +6,6 @@ export function makeServer({environment = 'development'} = {}) {
     environment,
 
     models: {
-      user: Model,
       post: Model,
     },
 
@@ -31,16 +30,10 @@ export function makeServer({environment = 'development'} = {}) {
     },
 
     seeds(server) {
-      server.create('user', {id: nanoid(), name: 'Kim'});
-      server.create('user', {id: nanoid(), name: 'Oh'});
-      server.create('user', {id: nanoid(), name: 'Park'});
-      server.createList('post', 20);
+      server.createList('post', 15);
     },
 
     routes() {
-      this.get('/fakeApi/users', schema => {
-        return schema.all('user');
-      });
       this.get('/fakeApi/posts', schema => {
         return schema.all('post');
       });
