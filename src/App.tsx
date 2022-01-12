@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 import SignInForm from './features/users/SignInForm';
 import SignUpForm from './features/users/SignUpForm';
 import {useUser} from './contexts/userContext';
+import MyPostsList from './features/users/MyPostsList';
 
 declare global {
   interface Window {
@@ -34,6 +35,7 @@ type RootStackParamList = {
   EditPost: {postId: string};
   SignIn: undefined;
   SignUp: undefined;
+  MyPostsList: undefined;
 };
 
 export type PostsListProps = NativeStackScreenProps<
@@ -58,6 +60,10 @@ export type EditPostProps = NativeStackScreenProps<
 
 export type SignUpProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 export type LogInProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
+export type MyPostsListProps = NativeStackScreenProps<
+  RootStackParamList,
+  'MyPostsList'
+>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -67,7 +73,6 @@ const App = () => {
 
   function onAuthStateChanged(user) {
     setUser(user);
-    console.log(user);
     if (initializing) setInitializing(false);
   }
 
@@ -99,6 +104,7 @@ const App = () => {
         <Stack.Screen name="EditPost" component={EditPostForm} />
         <Stack.Screen name="SignIn" component={SignInForm} />
         <Stack.Screen name="SignUp" component={SignUpForm} />
+        <Stack.Screen name="MyPostsList" component={MyPostsList} />
       </Stack.Navigator>
     </NavigationContainer>
   );
