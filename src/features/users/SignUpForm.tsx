@@ -50,7 +50,7 @@ const SignUpForm = ({navigation}: SignUpProps) => {
         onChangeText={setPassword}
         secureTextEntry={true}
       />
-      <Button title="SinUp" onPress={signUp} />
+      <Button title="SinUp" color="#774ABC" onPress={signUp} />
     </View>
   );
 };

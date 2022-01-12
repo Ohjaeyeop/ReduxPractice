@@ -84,6 +84,7 @@ const AddPostForm = ({navigation}: AddPostProps) => {
       />
       <Button
         title="Save Post"
+        color="#774ABC"
         onPress={onSavePostClicked}
         disabled={!canSave}
       />

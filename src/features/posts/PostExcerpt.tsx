@@ -59,10 +59,11 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
           Posts
         </Text>
         {user ? (
-          <Button title="Sign Out" onPress={signOut} />
+          <Button title="Sign Out" color="#774ABC" onPress={signOut} />
         ) : (
           <Button
             title="Sign In"
+            color="#774ABC"
             onPress={() => navigation.navigate('SignIn')}
           />
         )}

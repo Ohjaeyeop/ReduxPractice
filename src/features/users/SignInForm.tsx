@@ -51,8 +51,12 @@ const SignInForm = ({navigation}: LogInProps) => {
         onChangeText={setPassword}
       />
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <Button title="SignIn" onPress={logIn} />
-        <Button title="SinUp" onPress={() => navigation.navigate('SignUp')} />
+        <Button title="SignIn" color="#774ABC" onPress={logIn} />
+        <Button
+          title="SinUp"
+          color="#774ABC"
+          onPress={() => navigation.navigate('SignUp')}
+        />
       </View>
     </View>
   );
