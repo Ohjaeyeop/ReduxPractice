@@ -6,9 +6,11 @@ import PostAuthor from './PostAuthor';
 import ReactionButtons from './ReactionButtons';
 import TimeAgo from './TimeAgo';
 import {selectPostById} from './postsSlice';
+import {useUser} from '../../contexts/userContext';
 
 const SinglePostPage = ({navigation, route}: SinglePostProps) => {
   const {postId} = route.params;
+  const {user} = useUser();
 
   const post = useAppSelector(state => selectPostById(state, postId));
 
@@ -31,10 +33,13 @@ const SinglePostPage = ({navigation, route}: SinglePostProps) => {
       </Text>
       <Text style={{fontSize: 15, marginBottom: 20}}>{post.content}</Text>
       <ReactionButtons post={post} />
-      <Button
-        title="Edit Post"
-        onPress={() => navigation.navigate('EditPost', {postId})}
-      />
+      {user && post.user === user.email && (
+        <Button
+          title="Edit Post"
+          color="#774ABC"
+          onPress={() => navigation.navigate('EditPost', {postId})}
+        />
+      )}
     </View>
   );
 };

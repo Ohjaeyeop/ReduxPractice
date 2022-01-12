@@ -63,7 +63,7 @@ const EditPostForm = ({navigation, route}: EditPostProps) => {
         onChangeText={text => setContent(text)}
         value={content}
       />
-      <Button title="Save Post" onPress={onSavePostClicked} />
+      <Button title="Save Post" color="#774ABC" onPress={onSavePostClicked} />
     </View>
   );
 };
