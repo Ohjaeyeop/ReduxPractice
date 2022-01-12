@@ -10,7 +10,7 @@ import SinglePostPage from './features/posts/SinglePostPage';
 import EditPostForm from './features/posts/EditPostForm';
 import {makeServer} from './api/server';
 import auth from '@react-native-firebase/auth';
-import LogInForm from './features/users/LogInForm';
+import SignInForm from './features/users/SignInForm';
 import SignUpForm from './features/users/SignUpForm';
 import {useUser} from './contexts/userContext';
 
@@ -32,7 +32,7 @@ type RootStackParamList = {
   AddPost: undefined;
   SinglePost: {postId: string};
   EditPost: {postId: string};
-  LogIn: undefined;
+  SignIn: undefined;
   SignUp: undefined;
 };
 
@@ -97,7 +97,7 @@ const App = () => {
         <Stack.Screen name="AddPost" component={AddPostForm} />
         <Stack.Screen name="SinglePost" component={SinglePostPage} />
         <Stack.Screen name="EditPost" component={EditPostForm} />
-        <Stack.Screen name="LogIn" component={LogInForm} />
+        <Stack.Screen name="SignIn" component={SignInForm} />
         <Stack.Screen name="SignUp" component={SignUpForm} />
       </Stack.Navigator>
     </NavigationContainer>

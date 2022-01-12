@@ -60,9 +60,12 @@ const PostExcerpt = ({posts}: {posts: PostState[]}) => {
         </Text>
         <Button title="+" onPress={() => navigation.navigate('AddPost')} />
         {user ? (
-          <Button title="Logout" onPress={signOut} />
+          <Button title="Sign Out" onPress={signOut} />
         ) : (
-          <Button title="LogIn" onPress={() => navigation.navigate('LogIn')} />
+          <Button
+            title="Sign In"
+            onPress={() => navigation.navigate('SignIn')}
+          />
         )}
       </View>
       <FlatList

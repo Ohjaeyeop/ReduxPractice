@@ -3,7 +3,7 @@ import {Alert, Button, Text, TextInput, View} from 'react-native';
 import {LogInProps} from '../../App';
 import auth from '@react-native-firebase/auth';
 
-const LogInForm = ({navigation}: LogInProps) => {
+const SignInForm = ({navigation}: LogInProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,7 +21,7 @@ const LogInForm = ({navigation}: LogInProps) => {
   return (
     <View style={{padding: 15}}>
       <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
-        LogIn
+        Sign In
       </Text>
       <Text style={{fontSize: 15, marginBottom: 10}}>Email:</Text>
       <TextInput
@@ -51,11 +51,11 @@ const LogInForm = ({navigation}: LogInProps) => {
         onChangeText={setPassword}
       />
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <Button title="LogIn" onPress={logIn} />
+        <Button title="SignIn" onPress={logIn} />
         <Button title="SinUp" onPress={() => navigation.navigate('SignUp')} />
       </View>
     </View>
   );
 };
 
-export default LogInForm;
+export default SignInForm;
