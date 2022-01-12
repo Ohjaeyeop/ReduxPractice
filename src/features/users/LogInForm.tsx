@@ -1,9 +1,8 @@
 import React from 'react';
 import {Button, Text, TextInput, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {LogInProps} from '../../App';
 
-const LogInForm = () => {
-  const navigation = useNavigation();
+const LogInForm = ({navigation}: LogInProps) => {
   return (
     <View style={{padding: 15}}>
       <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>

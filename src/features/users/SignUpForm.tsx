@@ -1,11 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Text, TextInput, View} from 'react-native';
+import {SignUpProps} from '../../App';
+import auth from '@react-native-firebase/auth';
 
-const SignUpForm = () => {
+const SignUpForm = ({navigation}: SignUpProps) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const signUp = () => {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('SUCCESS');
+      })
+      .catch(error => {
+        console.log(error.code);
+      });
+  };
+
   return (
     <View style={{padding: 15}}>
       <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
-        LogIn
+        SignUp
       </Text>
       <Text style={{fontSize: 15, marginBottom: 10}}>Email:</Text>
       <TextInput
@@ -17,6 +33,8 @@ const SignUpForm = () => {
           borderColor: 'gray',
           padding: 5,
         }}
+        autoCapitalize={'none'}
+        onChangeText={setEmail}
       />
       <Text style={{fontSize: 15, marginBottom: 10}}>Password:</Text>
       <TextInput
@@ -28,8 +46,10 @@ const SignUpForm = () => {
           padding: 5,
           marginBottom: 15,
         }}
+        onChangeText={setPassword}
+        secureTextEntry={true}
       />
-      <Button title="SinUp" />
+      <Button title="SinUp" onPress={signUp} />
     </View>
   );
 };

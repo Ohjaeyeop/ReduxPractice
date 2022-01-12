@@ -55,6 +55,9 @@ export type EditPostProps = NativeStackScreenProps<
   'EditPost'
 >;
 
+export type SignUpProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
+export type LogInProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
