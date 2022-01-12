@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {Alert, Button, Text, TextInput, View} from 'react-native';
 import {SignUpProps} from '../../App';
 import auth from '@react-native-firebase/auth';
 
@@ -11,10 +11,10 @@ const SignUpForm = ({navigation}: SignUpProps) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        console.log('SUCCESS');
+        navigation.navigate('PostsList');
       })
       .catch(error => {
-        console.log(error.code);
+        Alert.alert(error.code);
       });
   };
 
@@ -34,6 +34,7 @@ const SignUpForm = ({navigation}: SignUpProps) => {
           padding: 5,
         }}
         autoCapitalize={'none'}
+        autoCorrect={false}
         onChangeText={setEmail}
       />
       <Text style={{fontSize: 15, marginBottom: 10}}>Password:</Text>
