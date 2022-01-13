@@ -34,7 +34,7 @@ const EditPostForm = ({navigation, route}: EditPostProps) => {
   return (
     <View style={{padding: 15}}>
       <Text style={{fontWeight: 'bold', fontSize: 20, marginBottom: 15}}>
-        Add a New Post
+        Edit Post
       </Text>
       <Text style={{fontSize: 15, marginBottom: 10}}>Post Title:</Text>
       <TextInput
