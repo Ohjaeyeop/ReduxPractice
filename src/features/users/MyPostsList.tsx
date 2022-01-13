@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, FlatList, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Button, FlatList, Modal, SafeAreaView, Text, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {MyPostsListProps} from '../../App';
 import {useUser} from '../../contexts/userContext';
@@ -10,6 +10,7 @@ import TimeAgo from '../posts/TimeAgo';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {RectButton, Swipeable} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
+import AddPostForm from '../posts/AddPostForm';
 
 const MyPostsList = ({navigation}: MyPostsListProps) => {
   const {user} = useUser();
@@ -17,6 +18,7 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
     posts.filter(post => post.user === user?.email),
   );
   const posts = useAppSelector(state => selectPostsByUser(state));
+  const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useAppDispatch();
 
   const renderRightActions = (id: string) => {
@@ -89,7 +91,9 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
         </View>
       </View>
       {posts.length === 0 ? (
-        <Text style={{padding: 15, fontSize: 15}}>작성하신 글이 없습니다.</Text>
+        <Text style={{flex: 1, padding: 15, fontSize: 15}}>
+          작성하신 글이 없습니다.
+        </Text>
       ) : (
         <FlatList
           data={posts}
@@ -98,6 +102,18 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
           keyExtractor={item => item.id}
         />
       )}
+      <Modal animationType="slide" visible={modalVisible}>
+        <SafeAreaView>
+          <AddPostForm onSaveClick={setModalVisible} />
+        </SafeAreaView>
+      </Modal>
+      <View style={{padding: 10, marginBottom: 20}}>
+        <Button
+          title="Add Post"
+          color="#774ABC"
+          onPress={() => setModalVisible(!modalVisible)}
+        />
+      </View>
     </View>
   );
 };
