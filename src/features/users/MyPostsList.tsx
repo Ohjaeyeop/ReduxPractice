@@ -9,7 +9,7 @@ import PostAuthor from '../posts/PostAuthor';
 import TimeAgo from '../posts/TimeAgo';
 import {useAppSelector} from '../../app/hooks';
 import {RectButton, Swipeable} from 'react-native-gesture-handler';
-import {Animated, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const MyPostsList = ({navigation}: MyPostsListProps) => {
   const {user} = useUser();
@@ -18,18 +18,18 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
   );
   const posts = useAppSelector(state => selectPostsByUser(state));
 
-  const renderRightActions = (
-    progress: Animated.AnimatedInterpolation,
-    dragX: Animated.AnimatedInterpolation,
-  ) => {
-    const scale = dragX.interpolate({
-      inputRange: [-80, 0],
-      outputRange: [1, 0],
-      extrapolate: 'clamp',
-    });
+  const renderRightActions = () => {
     return (
       <RectButton style={styles.rightAction} onPress={this.close}>
-        <Animated.View style={[styles.actionIcon, {transform: [{scale}]}]} />
+        <Text
+          style={{
+            color: 'white',
+            padding: 14,
+            fontSize: 15,
+            fontWeight: 'bold',
+          }}>
+          Delete
+        </Text>
       </RectButton>
     );
   };
@@ -50,7 +50,8 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
           justifyContent: 'space-between',
           flexDirection: 'column',
           backgroundColor: 'white',
-        }}>
+        }}
+        onPress={() => navigation.navigate('SinglePost', {postId: item.id})}>
         <Text style={{fontWeight: 'bold', fontSize: 15}}>{item.title}</Text>
         <Text style={{marginBottom: 10}}>
           <PostAuthor userId={item.user} />
