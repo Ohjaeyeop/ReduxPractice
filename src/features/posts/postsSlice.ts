@@ -55,6 +55,17 @@ export const addNewPost = createAsyncThunk(
   },
 );
 
+export const deletePost = createAsyncThunk(
+  'posts/deletePost',
+  async (id: string) => {
+    const res = await fetch(`/fakeApi/posts/${id}`, {
+      method: 'DELETE',
+    });
+    const response = await res.json();
+    return response.id;
+  },
+);
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
@@ -91,6 +102,7 @@ const postsSlice = createSlice({
       state.error = action.error.message;
     });
     builder.addCase(addNewPost.fulfilled, postsAdapter.addOne);
+    builder.addCase(deletePost.fulfilled, postsAdapter.removeOne);
   },
 });
 

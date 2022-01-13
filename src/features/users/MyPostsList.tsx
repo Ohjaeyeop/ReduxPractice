@@ -4,10 +4,10 @@ import auth from '@react-native-firebase/auth';
 import {MyPostsListProps} from '../../App';
 import {useUser} from '../../contexts/userContext';
 import {createSelector} from '@reduxjs/toolkit';
-import {PostState, selectAllPosts} from '../posts/postsSlice';
+import {deletePost, PostState, selectAllPosts} from '../posts/postsSlice';
 import PostAuthor from '../posts/PostAuthor';
 import TimeAgo from '../posts/TimeAgo';
-import {useAppSelector} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {RectButton, Swipeable} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
 
@@ -17,10 +17,13 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
     posts.filter(post => post.user === user?.email),
   );
   const posts = useAppSelector(state => selectPostsByUser(state));
+  const dispatch = useAppDispatch();
 
-  const renderRightActions = () => {
+  const renderRightActions = (id: string) => {
     return (
-      <RectButton style={styles.rightAction} onPress={this.close}>
+      <RectButton
+        style={styles.rightAction}
+        onPress={() => dispatch(deletePost(id))}>
         <Text
           style={{
             color: 'white',
@@ -40,7 +43,7 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
       leftThreshold={80}
       enableTrackpadTwoFingerGesture
       rightThreshold={40}
-      renderRightActions={renderRightActions}>
+      renderRightActions={renderRightActions.bind(null, item.id)}>
       <RectButton
         style={{
           flex: 1,

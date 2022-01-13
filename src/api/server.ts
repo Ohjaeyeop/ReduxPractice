@@ -49,6 +49,9 @@ export function makeServer({environment = 'development'} = {}) {
           },
         };
       });
+      this.delete('/fakeApi/posts/:id', (schema, request) => {
+        return {id: request.params.id};
+      });
     },
   });
 }
