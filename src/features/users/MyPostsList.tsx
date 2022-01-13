@@ -43,7 +43,6 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
     <Swipeable
       friction={2}
       leftThreshold={80}
-      enableTrackpadTwoFingerGesture
       rightThreshold={40}
       renderRightActions={renderRightActions.bind(null, item.id)}>
       <RectButton
