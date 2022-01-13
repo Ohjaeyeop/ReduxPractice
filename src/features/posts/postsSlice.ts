@@ -88,15 +88,16 @@ const postsSlice = createSlice({
     ) {
       const {postId, reaction, user} = action.payload;
       const existingPost = state.entities[postId];
-      if (existingPost) {
-        const reactionObj = existingPost.reactions[reaction];
-        if (reactionObj.users.includes(user)) {
-          reactionObj.count--;
-          reactionObj.users = reactionObj.users.filter(value => value !== user);
-        } else {
-          reactionObj.count++;
-          reactionObj.users.push(user);
-        }
+      if (!existingPost) {
+        return;
+      }
+      const reactionObj = existingPost.reactions[reaction];
+      if (reactionObj.users.includes(user)) {
+        reactionObj.count--;
+        reactionObj.users = reactionObj.users.filter(value => value !== user);
+      } else {
+        reactionObj.count++;
+        reactionObj.users.push(user);
       }
     },
   },
