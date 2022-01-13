@@ -772,6 +772,13 @@
     "exec-sh" "^0.3.2"
     "minimist" "^1.2.0"
 
+"@egjs/hammerjs@^2.0.17":
+  "integrity" "sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A=="
+  "resolved" "https://registry.npmjs.org/@egjs/hammerjs/-/hammerjs-2.0.17.tgz"
+  "version" "2.0.17"
+  dependencies:
+    "@types/hammerjs" "^2.0.36"
+
 "@eslint/eslintrc@^0.4.3":
   "integrity" "sha512-J6KFFz5QCYUJq3pf0mjEcCJVERbzv71PUIDczuh9JkwGEzced6CO5ADLHB1rbf/+oPBtoPfMYNOpGDzCANlbXw=="
   "resolved" "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.4.3.tgz"
@@ -1487,6 +1494,11 @@
   "version" "4.1.5"
   dependencies:
     "@types/node" "*"
+
+"@types/hammerjs@^2.0.36":
+  "integrity" "sha512-ewXv/ceBaJprikMcxCmWU1FKyMAQ2X7a9Gtmzw8fcg2kIePI1crERDM818W+XYrxqdBBOdlf2rm137bU+BltCA=="
+  "resolved" "https://registry.npmjs.org/@types/hammerjs/-/hammerjs-2.0.41.tgz"
+  "version" "2.0.41"
 
 "@types/hoist-non-react-statics@^3.3.0":
   "integrity" "sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA=="
@@ -6445,6 +6457,17 @@
     "flow-parser" "^0.121.0"
     "jscodeshift" "^0.11.0"
     "nullthrows" "^1.1.1"
+
+"react-native-gesture-handler@^2.1.1":
+  "integrity" "sha512-1+qMhsXKKWTPAFi2ZY8rEhP/4xIevWNb1zLU9MzJkr7tRIEW4G+ipxjLyCw+7hQeqeeIbyZ8kkTyHAUuwTrHDA=="
+  "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.1.1.tgz"
+  "version" "2.1.1"
+  dependencies:
+    "@egjs/hammerjs" "^2.0.17"
+    "hoist-non-react-statics" "^3.3.0"
+    "invariant" "^2.2.4"
+    "lodash" "^4.17.21"
+    "prop-types" "^15.7.2"
 
 "react-native-picker-select@^8.0.4":
   "integrity" "sha512-orBjPIwBkV5oipyVw263YNMI56f6Kj3p/ejabZoCYYNSG3AiLVVhC2RqsxMgDA7IayyURAW+AlV+mDJyVqLBkg=="
