@@ -19,11 +19,16 @@ const ReactionButtons = ({post}: {post: PostState}) => {
   const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {
     return (
       <TouchableOpacity
-        onPress={() =>
-          dispatch(
-            reactionAdded({postId: post.id, reaction: name as ReactionType}),
-          )
-        }
+        onPress={() => {
+          user &&
+            dispatch(
+              reactionAdded({
+                postId: post.id,
+                reaction: name as ReactionType,
+                user: user.email,
+              }),
+            );
+        }}
         style={{
           borderWidth: 1,
           borderColor: 'gray',
@@ -35,7 +40,7 @@ const ReactionButtons = ({post}: {post: PostState}) => {
         key={name}
         disabled={user === null}>
         <Text>
-          {emoji} {post.reactions[name as ReactionType]}
+          {emoji} {post.reactions[name as ReactionType].count}
         </Text>
       </TouchableOpacity>
     );

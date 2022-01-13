@@ -12,15 +12,15 @@ export interface PostState {
   content: string;
   user?: string;
   date: string;
-  reactions: {
-    thumbsUp: number;
-    hooray: number;
-    heart: number;
-    rocket: number;
-    eyes: number;
-  };
+  reactions: ReactionObjType;
 }
 
+type ReactionObjType = {
+  [index in ReactionType]: {
+    count: number;
+    users: string[];
+  };
+};
 export type ReactionType = 'thumbsUp' | 'hooray' | 'heart' | 'rocket' | 'eyes';
 
 interface StateType {
@@ -80,12 +80,23 @@ const postsSlice = createSlice({
     },
     reactionAdded(
       state,
-      action: PayloadAction<{postId: string; reaction: ReactionType}>,
+      action: PayloadAction<{
+        postId: string;
+        reaction: ReactionType;
+        user: string;
+      }>,
     ) {
-      const {postId, reaction} = action.payload;
+      const {postId, reaction, user} = action.payload;
       const existingPost = state.entities[postId];
       if (existingPost) {
-        existingPost.reactions[reaction]++;
+        const reactionObj = existingPost.reactions[reaction];
+        if (reactionObj.users.includes(user)) {
+          reactionObj.count--;
+          reactionObj.users = reactionObj.users.filter(value => value !== user);
+        } else {
+          reactionObj.count++;
+          reactionObj.users.push(user);
+        }
       }
     },
   },
