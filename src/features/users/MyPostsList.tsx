@@ -88,12 +88,16 @@ const MyPostsList = ({navigation}: MyPostsListProps) => {
           <Button title="Sign Out" color="black" onPress={signOut} />
         </View>
       </View>
-      <FlatList
-        data={posts}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        renderItem={renderPosts}
-        keyExtractor={item => item.id}
-      />
+      {posts.length === 0 ? (
+        <Text style={{padding: 15, fontSize: 15}}>작성하신 글이 없습니다.</Text>
+      ) : (
+        <FlatList
+          data={posts}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          renderItem={renderPosts}
+          keyExtractor={item => item.id}
+        />
+      )}
     </View>
   );
 };
